@@ -1,9 +1,12 @@
 package Aula2;
 
 import java.net.*;
+
+import myinputs.Ler;
+
 import java.io.*;
 
-public class UDPClient{
+public class UDPClient{	
 	public static String readString (){
 		BufferedReader canal;
 		canal = new BufferedReader ( new InputStreamReader (System.in));
@@ -14,6 +17,7 @@ public class UDPClient{
 			return null;
 		}
 	}
+	
 	public static void main(String args[]) throws SocketException{
 		String s;
 		System.out.print("Qual o servidor? ");
@@ -24,7 +28,7 @@ public class UDPClient{
 			aSocket.setSoTimeout(10000); // Exercício c)
 			while(true){
 				System.out.print("<Client> Mensagem a enviar = ");
-				s = readString();
+				s = Ler.umaString();
 				if (s.equals("fim")) {
 					System.out.println("aqui");
 					break;
@@ -35,6 +39,9 @@ public class UDPClient{
 				int serverPort = 2222;
 				
 				DatagramPacket request = new DatagramPacket(m, m.length, aHost,serverPort);
+				
+				long start = System.currentTimeMillis();
+				
 				aSocket.send(request);
 				
 				byte[] buffer = new byte[100];
@@ -43,8 +50,9 @@ public class UDPClient{
 				// Exercício c)
 				try {
 	                aSocket.receive(reply);
+	                long end = System.currentTimeMillis();
 	                System.out.println("<Client> Recebeu: " + new String(reply.getData()));
-	 
+	                System.out.println("Demorou -> " + (end-start)); // Exercício e)
 	            } catch (SocketTimeoutException e) {
 	                System.out.println("<Client> Timeout: " + e.getMessage());
 	            }
