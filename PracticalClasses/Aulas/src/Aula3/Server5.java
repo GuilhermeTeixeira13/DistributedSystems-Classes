@@ -59,23 +59,27 @@ public class Server5 {
 	    	            	Boolean alunosRepetidos = verificaRepetidos(Integer.parseInt(numero), listaAlunos);
 	    	            	
 	    	            	if(alunosRepetidos) {
-	    	            		out.println("Aluno repetido. Não foi registado novamente. Número de alunos registados: " + listaAlunos.size() + ".");
+	    	            		out.println("Aluno repetido. Não foi registado novamente. Número de alunos registados: " + listaAlunos.size() + ".\nEOF");
 	    	            	} else {
 	    	            		Aluno novo = new Aluno(Integer.parseInt(numero), nome, curso, Integer.parseInt(telemovel), email);
 	    	            		listaAlunos.add(novo);
 	    	            		writeAlunosToFile(listaAlunos);
-	    	            		out.println("Registado com sucesso. Número de alunos registados: " + listaAlunos.size() + ".");
+	    	            		out.println("Registado com sucesso. Número de alunos registados: " + listaAlunos.size() + ".\\nEOF");
+	    	            		out.flush();
 	    	            	}
 	    	                break;
 	    	            case "2":
 	    	            	out.println(outputListaDeAlunos(listaAlunos));
+	    	            	out.flush();
 	    	                break;
 	    	            case "3":
-	    	            	out.println("Número de acessos ao servidor até ao momento: " + numAcessos);
+	    	            	out.println("Número de acessos ao servidor até ao momento: " + numAcessos + "\nEOF");
+	    	            	out.flush();
 	    	                break;
 	    	            case "4":
 	    	            	nome = in.readLine();
 	    	            	out.println(devolveNumContacto(nome, listaAlunos));
+	    	            	out.flush();
 	    	                break;	    	    	             
                 	}
                 } 
@@ -114,12 +118,12 @@ public class Server5 {
     	lista += "         ALUNOS        \n";
     	lista += "-----------------------\n";
     	for (Aluno aluno : alunos) {
-    		lista += "Número: " + aluno.getNumero() + "/n";
-    		lista += "Nome: " + aluno.getNome() + "/n";
-    		lista += "Curso: " + aluno.getCurso() + "/n";
-    		lista += "Telemóvel: " + aluno.getTelemovel() + "/n";
-    		lista += "Email: " + aluno.getEmail() + "/n";
-    	    lista += "-----------------------\n";
+    		lista += "Número: " + aluno.getNumero() + "\n";
+    		lista += "Nome: " + aluno.getNome() + "\n";
+    		lista += "Curso: " + aluno.getCurso() + "\n";
+    		lista += "Telemóvel: " + aluno.getTelemovel() + "\n";
+    		lista += "Email: " + aluno.getEmail() + "\n";
+    	    lista += "-----------------------\nEOF";
     	}
     	return lista;
 	}
@@ -131,7 +135,7 @@ public class Server5 {
     			lista += "Número: " + aluno.getNumero() + "/n";
     			lista += "Telemóvel: " + aluno.getTelemovel() + "/n";
     		}
-    	    lista += "-----------------------\n";
+    	    lista += "-----------------------\nEOF";
     	}
     	return lista;
 	}

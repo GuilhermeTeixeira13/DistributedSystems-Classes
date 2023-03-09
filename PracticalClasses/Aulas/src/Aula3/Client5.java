@@ -27,8 +27,7 @@ public class Client5 {
 	            System.out.println("4. Ver dados de aluno");
 	            System.out.println("5. Quit");
 	            System.out.print("Enter your choice (1-4): ");
-	            Scanner scanner = new Scanner(System.in);
-	            String choice = scanner.nextLine();	            
+	            String choice = keyboardIn.readLine();	            
 		
 				// Envia escolha para o servidor
 				out.println(choice);
@@ -38,33 +37,33 @@ public class Client5 {
 				switch (choice) {
 		            case "1":
 		            	System.out.print("Número: ");
-		            	String numero = scanner.nextLine();
+		            	String numero = keyboardIn.readLine();
 		            	out.println(numero);
 		            	out.flush();
 		            	
 		            	System.out.print("Nome: ");
-		            	nome = scanner.nextLine();
+		            	nome = keyboardIn.readLine();
 		            	out.println(nome);
 		            	out.flush();
 		            	
 		            	System.out.print("Curso: ");
-		            	String curso = scanner.nextLine();
+		            	String curso = keyboardIn.readLine();
 		            	out.println(curso);
 		            	out.flush();
 		            	
 		            	System.out.print("Telemóvel: ");
-		            	String telemovel = scanner.nextLine();
+		            	String telemovel = keyboardIn.readLine();
 		            	out.println(telemovel);
 		            	out.flush();
 		            	
 		            	System.out.print("Email: ");
-		            	String email = scanner.nextLine();
+		            	String email = keyboardIn.readLine();
 		            	out.println(email);
 		            	out.flush();
 		                break;
 		            case "4":
 		            	System.out.print("Nome: ");
-		            	nome = scanner.nextLine();
+		            	nome = keyboardIn.readLine();
 		            	out.println(nome);
 		            	out.flush();
 		            	break;
@@ -74,10 +73,11 @@ public class Client5 {
 				        break;
 				}
 
-				// Recebe resposta do servidor
-				inputLine = in.readLine();
 				while ((inputLine = in.readLine()) != null) {
-				    System.out.println(inputLine);
+					if (inputLine.equals("EOF")) {
+				        break;
+				    }
+					System.out.println(inputLine);
 				}
 			}
 		} catch (IOException e) {
