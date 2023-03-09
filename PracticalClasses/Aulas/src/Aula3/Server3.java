@@ -41,7 +41,7 @@ public class Server3 {
                 
                 while ((inputLine = in.readLine()) != null) {
                 	System.out.println("Client: " + inputLine);
-                	if (inputLine.equalsIgnoreCase("end")) {
+                	if (inputLine.equalsIgnoreCase("disconnect")) {
     			        break;
     			    }
     				

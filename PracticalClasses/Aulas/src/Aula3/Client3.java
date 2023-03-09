@@ -21,6 +21,12 @@ public class Client3 {
 			while (true) {
 				System.out.print("Enter message to send to server: ");
 				String outputLine = keyboardIn.readLine();
+				
+				if (outputLine.equalsIgnoreCase("disconnect")) {
+			        System.out.println("Closing connection...");
+			        socket.close();
+			        break;
+			    }
 		
 				out.println(outputLine);
 				out.flush();
