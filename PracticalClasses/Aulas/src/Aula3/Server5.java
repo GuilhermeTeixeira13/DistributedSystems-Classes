@@ -8,6 +8,8 @@ import java.lang.Math;
 public class Server5 {
 	static ArrayList<Aluno> listaAlunos = readAlunosFromFile();
 	static int numAcessos = 0;
+	static String svHeader = "\n_______________________\n|        SERVER       |\n\n";
+	static String svFooter = "|                     |\n_______________________\nEOF";
 	
     public static void main(String[] args) throws IOException {
         int portNumber = 2222;
@@ -43,11 +45,12 @@ public class Server5 {
                 String inputLine;
                 
                 while ((inputLine = in.readLine()) != null) {
-                	System.out.println("Client: " + inputLine);
+                	System.out.println("Client: Option=" + inputLine);
                 	if (inputLine.equalsIgnoreCase("5")) {
     			        break;
     			    }
                 	String nome = "";
+                
                 	switch (inputLine) {
 	    	            case "1":
 	    	            	String numero = in.readLine();
@@ -59,12 +62,12 @@ public class Server5 {
 	    	            	Boolean alunosRepetidos = verificaRepetidos(Integer.parseInt(numero), listaAlunos);
 	    	            	
 	    	            	if(alunosRepetidos) {
-	    	            		out.println("Aluno repetido. Não foi registado novamente. Número de alunos registados: " + listaAlunos.size() + ".\nEOF");
+	    	            		out.println(svHeader + "Aluno repetido. Não foi registado novamente. Número de alunos registados: " + listaAlunos.size() + ".\n"+svFooter);
 	    	            	} else {
 	    	            		Aluno novo = new Aluno(Integer.parseInt(numero), nome, curso, Integer.parseInt(telemovel), email);
 	    	            		listaAlunos.add(novo);
 	    	            		writeAlunosToFile(listaAlunos);
-	    	            		out.println("Registado com sucesso. Número de alunos registados: " + listaAlunos.size() + ".\\nEOF");
+	    	            		out.println(svHeader+"Registado com sucesso. Número de alunos registados: " + listaAlunos.size() + ".\n"+svFooter);
 	    	            		out.flush();
 	    	            	}
 	    	                break;
@@ -73,7 +76,7 @@ public class Server5 {
 	    	            	out.flush();
 	    	                break;
 	    	            case "3":
-	    	            	out.println("Número de acessos ao servidor até ao momento: " + numAcessos + "\nEOF");
+	    	            	out.println(svHeader+"Número de acessos ao servidor até ao momento: " + numAcessos + "\n"+svFooter);
 	    	            	out.flush();
 	    	                break;
 	    	            case "4":
@@ -114,7 +117,7 @@ public class Server5 {
 	}
     
     private static String outputListaDeAlunos(ArrayList<Aluno> alunos) {
-    	String lista = "-----------------------\n";
+    	String lista = svHeader + "-----------------------\n";
     	lista += "         ALUNOS        \n";
     	lista += "-----------------------\n";
     	for (Aluno aluno : alunos) {
@@ -123,20 +126,23 @@ public class Server5 {
     		lista += "Curso: " + aluno.getCurso() + "\n";
     		lista += "Telemóvel: " + aluno.getTelemovel() + "\n";
     		lista += "Email: " + aluno.getEmail() + "\n";
-    	    lista += "-----------------------\nEOF";
+    	    lista += "-----------------------\n";
     	}
+    	lista += "\n" + svFooter;
     	return lista;
 	}
     
     private static String devolveNumContacto(String nome, ArrayList<Aluno> alunos) {
-    	String lista = "-----------------------\n";
+    	String lista = svHeader;
+    	lista += "-----------------------\n";
     	for (Aluno aluno : alunos) {
     		if(aluno.getNome().equals(nome)) {
-    			lista += "Número: " + aluno.getNumero() + "/n";
-    			lista += "Telemóvel: " + aluno.getTelemovel() + "/n";
+    			lista += "Número: " + aluno.getNumero() + "\n";
+    			lista += "Telemóvel: " + aluno.getTelemovel() + "\n";
+    			lista += "-----------------------\n\n";
     		}
-    	    lista += "-----------------------\nEOF";
     	}
+    	lista += svFooter;
     	return lista;
 	}
     

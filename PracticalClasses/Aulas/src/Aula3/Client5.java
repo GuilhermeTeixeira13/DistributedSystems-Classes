@@ -36,7 +36,7 @@ public class Client5 {
 				String nome = "";
 				switch (choice) {
 		            case "1":
-		            	System.out.print("Número: ");
+		            	System.out.print("\nNúmero: ");
 		            	String numero = keyboardIn.readLine();
 		            	out.println(numero);
 		            	out.flush();
@@ -62,7 +62,7 @@ public class Client5 {
 		            	out.flush();
 		                break;
 		            case "4":
-		            	System.out.print("Nome: ");
+		            	System.out.print("\nNome: ");
 		            	nome = keyboardIn.readLine();
 		            	out.println(nome);
 		            	out.flush();
