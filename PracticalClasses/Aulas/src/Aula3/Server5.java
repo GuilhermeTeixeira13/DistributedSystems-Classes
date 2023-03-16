@@ -62,12 +62,12 @@ public class Server5 {
 	    	            	Boolean alunosRepetidos = verificaRepetidos(Integer.parseInt(numero), listaAlunos);
 	    	            	
 	    	            	if(alunosRepetidos) {
-	    	            		out.println(svHeader + "Aluno repetido. Não foi registado novamente. Número de alunos registados: " + listaAlunos.size() + ".\n"+svFooter);
+	    	            		out.println(svHeader + "Aluno repetido. Não foi registado novamente. Número de alunos registados: " + listaAlunos.size() + ".\n\n"+svFooter);
 	    	            	} else {
 	    	            		Aluno novo = new Aluno(Integer.parseInt(numero), nome, curso, Integer.parseInt(telemovel), email);
 	    	            		listaAlunos.add(novo);
 	    	            		writeAlunosToFile(listaAlunos);
-	    	            		out.println(svHeader+"Registado com sucesso. Número de alunos registados: " + listaAlunos.size() + ".\n"+svFooter);
+	    	            		out.println(svHeader+"Registado com sucesso. Número de alunos registados: " + listaAlunos.size() + ".\n\n"+svFooter);
 	    	            		out.flush();
 	    	            	}
 	    	                break;
@@ -76,7 +76,7 @@ public class Server5 {
 	    	            	out.flush();
 	    	                break;
 	    	            case "3":
-	    	            	out.println(svHeader+"Número de acessos ao servidor até ao momento: " + numAcessos + "\n"+svFooter);
+	    	            	out.println(svHeader+"Número de acessos ao servidor até ao momento: " + numAcessos + "\n\n"+svFooter);
 	    	            	out.flush();
 	    	                break;
 	    	            case "4":
