@@ -1,8 +1,9 @@
 package Aula4;
 
 public class MyThread extends Thread {
-	public MyThread(){
-		super();
+	public MyThread(String name){
+		super(name);
+		start();
 	}
 	
 	public void run() {

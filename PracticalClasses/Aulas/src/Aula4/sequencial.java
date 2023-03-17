@@ -2,8 +2,8 @@ package Aula4;
 
 import java.util.Random;
 
-public class Teste3 {
-	public static void main (String[] str){		
+public class sequencial {
+	public static void main(String[] args) {
 		int[] A = new int [100000000];
         int[] B = new int[100000000];
         int[] C = new int[100000000];
@@ -16,18 +16,14 @@ public class Teste3 {
         
         long startTime = System.currentTimeMillis();
         
-		ThreadSoma T1 = new ThreadSoma(A, B, C, 0, 50000000);
-		ThreadSoma T2 = new ThreadSoma(A, B, C, 50000000, 100000000);
-		
-		try {
-			T1.join();
-			T2.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	
-		long endTime = System.currentTimeMillis();
-		long executionTime = endTime - startTime;
+        for (int i = 0; i < A.length; i++) {
+            C[i] = A[i] + B[i];
+        }
+        
+        long endTime = System.currentTimeMillis();
+        long executionTime = endTime - startTime;
         System.out.println("Execution time: " + executionTime + "ms");
-	} 
+
+        // #3.c -> Para arrays grandes, o sequencial é mais lento. S:ms vs T:ms
+	}
 }
