@@ -1,22 +1,20 @@
 package Aula4;
 
-import java.util.Random;
-
 public class sequencial {
 	public static void main(String[] args) {
-		int[] A = new int [100000000];
-        int[] B = new int[100000000];
-        int[] C = new int[100000000];
+		int dim = 1000000;
+		int[] A = new int [dim];
+        int[] B = new int[dim];
+        int[] C = new int[dim];
         
-        Random random = new Random();
-        for (int i = 0; i < 100000000; i++) {
-            A[i] = random.nextInt();
-            B[i] = random.nextInt();
+        for (int i = 0; i < dim; i++) {
+            A[i] = (int)(Math.random()*100);
+            B[i] = (int)(Math.random()*100);
         }
         
         long startTime = System.currentTimeMillis();
         
-        for (int i = 0; i < A.length; i++) {
+        for (int i = 0; i < dim; i++) {
             C[i] = A[i] + B[i];
         }
         
