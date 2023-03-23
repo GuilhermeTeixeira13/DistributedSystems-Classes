@@ -10,10 +10,11 @@ public class Semaphore {
 			try { wait(); }
 			catch (InterruptedException e) {}
 		}
-		s = s –1;
+		s = s - 1;
 	}
 	public synchronized void semSignal (){
 		s = s + 1 ;
 		notify(); 
 	}
 }
+

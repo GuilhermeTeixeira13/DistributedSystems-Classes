@@ -5,9 +5,10 @@ public class teste1 {
 	public static void main(String[] args) {
 		int[] sharedVariable = new int[1];
         sharedVariable[0] = 0;
+        Semaphore semaphore = new Semaphore(1);
 
-        P1 p1 = new P1(sharedVariable, 10);
-        P2 p2 = new P2(sharedVariable);
+        P1 p1 = new P1(sharedVariable, 10, semaphore);
+        P2 p2 = new P2(sharedVariable, semaphore);
         
         // Para o programa terminar assim que o P1 termina
         p2.setDaemon(true);

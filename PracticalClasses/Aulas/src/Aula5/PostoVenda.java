@@ -16,15 +16,15 @@ public class PostoVenda extends Thread {
 		while (true){
 			try {
 				pausa = 2;
-				sleep(pausa);
+				sleep(pausa);			
 				
 				if (SC.getBilhetesDisponiveis() == 0) {
 					System.out.println(posto + " fim");
 					break;
+				}else {
+					System.out.println( posto + " vendeu o bilhete " + SC.venderBilhete() +
+							" para o filme " + SC.getNomeFilme());
 				}
-				
-				System.out.println( posto + " vendeu o bilhete " + SC.venderBilhete() +
-						" para o filme " + SC.getNomeFilme());
 			} catch (InterruptedException ex) {
 				System.out.println(ex.getMessage());
 			}
