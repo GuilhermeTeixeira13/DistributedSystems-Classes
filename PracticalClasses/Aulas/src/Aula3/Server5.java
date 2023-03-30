@@ -2,6 +2,9 @@ package Aula3;
 
 import java.net.*;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 import java.io.*;
 import java.lang.Math;
 
@@ -10,8 +13,11 @@ public class Server5 {
 	static int numAcessos = 0;
 	static String svHeader = "\n_______________________\n|        SERVER       |\n\n";
 	static String svFooter = "|                     |\n_______________________\nEOF";
+	static Semaphore sem = new Semaphore(5);
+	static ExecutorService pool = Executors.newFixedThreadPool(5);
+
 	
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         int portNumber = 2222;
 
         try {
@@ -19,10 +25,22 @@ public class Server5 {
             System.out.println("Server started on port " + portNumber);
 
             while (true) {
-                Socket clientSocket = serverSocket.accept();
-                numAcessos++;
-                System.out.println("Client " + clientSocket.getInetAddress().getHostAddress() + " connected");
-                new ClientHandler(clientSocket).start();
+            	Socket clientSocket = serverSocket.accept();
+            	if (sem.tryAcquire()) { 
+                    numAcessos++;
+                    System.out.println("Client " + clientSocket.getInetAddress().getHostAddress() + " connected");
+                    PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                    out.println("Connected to the server " + serverSocket.getInetAddress().getHostAddress());
+                    out.println("EOF");
+                    pool.execute(new ClientHandler(clientSocket));
+                } else {
+                    System.out.println("Maximum number of clients reached, rejecting connection...");
+                    // Close the connection with the client that tried to connect
+                    PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                    out.println("Server reached maximum capacity, try again later.");
+                    out.println("EOF");
+                    clientSocket.close();
+                }
             }
             
         } catch (IOException e) {
@@ -53,22 +71,24 @@ public class Server5 {
                 
                 	switch (inputLine) {
 	    	            case "1":
-	    	            	String numero = in.readLine();
-	    	            	nome = in.readLine();
-	    	            	String curso = in.readLine();
-	    	            	String telemovel = in.readLine();
-	    	            	String email = in.readLine();
-	    	            	
-	    	            	Boolean alunosRepetidos = verificaRepetidos(Integer.parseInt(numero), listaAlunos);
-	    	            	
-	    	            	if(alunosRepetidos) {
-	    	            		out.println(svHeader + "Aluno repetido. Não foi registado novamente. Número de alunos registados: " + listaAlunos.size() + ".\n\n"+svFooter);
-	    	            	} else {
-	    	            		Aluno novo = new Aluno(Integer.parseInt(numero), nome, curso, Integer.parseInt(telemovel), email);
-	    	            		listaAlunos.add(novo);
-	    	            		writeAlunosToFile(listaAlunos);
-	    	            		out.println(svHeader+"Registado com sucesso. Número de alunos registados: " + listaAlunos.size() + ".\n\n"+svFooter);
-	    	            		out.flush();
+	    	            	synchronized(listaAlunos) {
+	    	            		String numero = in.readLine();
+	    	            		nome = in.readLine();
+	    	            		String curso = in.readLine();
+	    	            		String telemovel = in.readLine();
+	    	            		String email = in.readLine();
+
+	    	            		Boolean alunosRepetidos = verificaRepetidos(Integer.parseInt(numero), listaAlunos);
+
+	    	            		if(alunosRepetidos) {
+	    	            			out.println(svHeader + "Aluno repetido. Não foi registado novamente. Número de alunos registados: " + listaAlunos.size() + ".\n\n"+svFooter);
+	    	            		} else {
+	    	            			Aluno novo = new Aluno(Integer.parseInt(numero), nome, curso, Integer.parseInt(telemovel), email);
+	    	            			listaAlunos.add(novo);
+	    	            			writeAlunosToFile(listaAlunos);
+	    	            			out.println(svHeader+"Registado com sucesso. Número de alunos registados: " + listaAlunos.size() + ".\n\n"+svFooter);
+	    	            			out.flush();
+	    	            		}
 	    	            	}
 	    	                break;
 	    	            case "2":
@@ -88,10 +108,21 @@ public class Server5 {
                 } 
                 
                 System.out.println("Client " + clientSocket.getInetAddress().getHostAddress() + " disconnected");
+                sem.release();
                 clientSocket.close();
             }   
             catch (IOException e) {
-                System.err.println("Error handling client: " + e.getMessage());
+            	System.err.println("Error: " + e.getMessage());
+
+                // send error message to client
+                try {
+                    Socket errorSocket = new Socket("localhost", 2222);
+                    PrintWriter out = new PrintWriter(errorSocket.getOutputStream(), true);
+                    out.println("Error: " + e.getMessage());
+                    errorSocket.close();
+                } catch (IOException ex) {
+                    System.err.println("Failed to send error message to client: " + ex.getMessage());
+                }
             }
         }
     }
