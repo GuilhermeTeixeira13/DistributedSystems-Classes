@@ -38,7 +38,6 @@ public class Server5 {
                     // Close the connection with the client that tried to connect
                     PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
                     out.println("Server reached maximum capacity, try again later.");
-                    out.println("EOF");
                     clientSocket.close();
                 }
             }

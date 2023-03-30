@@ -15,15 +15,9 @@ public class Client5 {
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader keyboardIn = new BufferedReader(new InputStreamReader(System.in));
-			String inputLine;
-			
-			while ((inputLine = in.readLine()) != null) {
-				if (inputLine.equals("EOF")) {
-			        break;
-			    }
-				System.out.println(inputLine);
-			}
-			
+			String inputLine = in.readLine();
+
+			System.out.println(inputLine);
 			if (inputLine.equals("Server reached maximum capacity, try again later.")) {
 				System.out.println("Closing connection...");
 		        socket.close();
