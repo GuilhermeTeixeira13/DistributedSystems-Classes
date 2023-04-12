@@ -28,9 +28,9 @@ public class UDPClient{
 			aSocket.setSoTimeout(10000); // Exercício c)
 			while(true){
 				System.out.print("<Client> Mensagem a enviar = ");
-				s = Ler.umaString();
+				s = readString();
+				
 				if (s.equals("fim")) {
-					System.out.println("aqui");
 					break;
 				};
 				
@@ -38,7 +38,7 @@ public class UDPClient{
 				InetAddress aHost = InetAddress.getByName(host);
 				int serverPort = 2222;
 				
-				DatagramPacket request = new DatagramPacket(m, m.length, aHost,serverPort);
+				DatagramPacket request = new DatagramPacket(m, m.length, aHost, serverPort);
 				
 				long start = System.currentTimeMillis();
 				

@@ -14,7 +14,7 @@ public class UDPServer{
 				byte[] buffer = new byte[100];
 				DatagramPacket request = new DatagramPacket(buffer, buffer.length);
 				aSocket.receive(request);
-				s=new String(request.getData());
+				s = new String(request.getData());
 				System.out.println("<Server> Server Recebeu: " + s);
 				DatagramPacket reply = new DatagramPacket(request.getData(),
 						request.getLength(), request.getAddress(), request.getPort());
