@@ -20,11 +20,15 @@ public class Server5 {
 	static String svFooter = "|                     |\n_______________________\nEOF";
 	
 	static ArrayList<Aluno> listaAlunos = readAlunosFromFile();
-	static int numAcessos = 0;
 
+	private ClientHandler c1;
+	private ClientHandler c2;
+	private ClientHandler c3;
 	
-    public static void main(String[] args) throws IOException, InterruptedException {
-        int portNumber = 5345;
+	private int []numeroAcessos;
+	
+	public Server5 () {
+		int portNumber = 5345;
         ServerSocket serverSocket = null;
         
         try {
@@ -36,21 +40,35 @@ public class Server5 {
             System.err.println("Error: " + e.getMessage());
         }
         
-        ClientHandler c1 = new ClientHandler (serverSocket); 
+        numeroAcessos = new int[1];
+		numeroAcessos[0] = 0;
+        
+        c1 = new ClientHandler (serverSocket, numeroAcessos);
+        c2 = new ClientHandler (serverSocket, numeroAcessos); 
+        c3 = new ClientHandler (serverSocket, numeroAcessos); 
+	}
+	
+    public static void main(String[] args) throws IOException, InterruptedException {
+    	Server5 s = new Server5();
     }
 
     private static class ClientHandler extends Thread {
         private ServerSocket serverSocket;
+        Socket clientSocket = null;
+        private int []numeroAcessos;
 
-        public ClientHandler(ServerSocket serverSocket) {
+        public ClientHandler(ServerSocket serverSocket, int[] numeroAcessos) {
+        	super();
             this.serverSocket = serverSocket;
+            this.numeroAcessos = numeroAcessos;
+            start();
         }
 
         public void run() {
             try {
             	while(true) {
-            		Socket clientSocket = serverSocket.accept();
-                	numAcessos++;
+            		clientSocket = serverSocket.accept();
+            		numeroAcessos[0] = numeroAcessos[0] + 1;
                 	
                     System.out.println("Client " + clientSocket.getInetAddress().getHostAddress() + " connected");
                 	
@@ -110,7 +128,7 @@ public class Server5 {
     	    	                break;
     	    	            case "3":
     	    	            	// send the number of accesses to the server to the client
-    	    	            	out.println(svHeader+"Número de acessos ao servidor até ao momento: " + numAcessos + "\n\n"+svFooter);
+    	    	            	out.println(svHeader+"Número de acessos ao servidor até ao momento: " + numeroAcessos[0] + "\n\n"+svFooter);
     	    	            	out.flush();
     	    	                break;
     	    	            case "4":

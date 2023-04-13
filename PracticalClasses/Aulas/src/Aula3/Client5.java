@@ -97,6 +97,7 @@ public class Client5 {
 				}
 			}
 		} catch (IOException e) {
+			System.out.println("aqui");
 			System.err.println("Error: " + e.getMessage());
 		}
 	}
