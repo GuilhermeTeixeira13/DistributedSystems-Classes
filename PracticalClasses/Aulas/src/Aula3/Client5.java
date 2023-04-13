@@ -8,7 +8,7 @@ public class Client5 {
 	public static void main(String[] args) throws IOException {
 		// Specifies the IP address and port number to connect to the server
 		String serverAddress = "127.0.0.1";
-		int portNumber = 2222;
+		int portNumber = 5345;
 
 		try {
 			// Creates a new socket with the specified server address and port number
