@@ -32,12 +32,10 @@ public class Connection extends Thread {
 	public void run() {
 		try {
 			while(true) {
-				// Wait for a client to connect
-				
-
 				// Increment the number of accesses to the server
 				synchronized (numeroAcessos) {
-					clientSocket = serverSocket.accept();
+					// Wait for a client to connect
+					clientSocket = serverSocket.accept(); // Its placed here because it is not thread safe
 					numeroAcessos[0]++;
 				}
 
