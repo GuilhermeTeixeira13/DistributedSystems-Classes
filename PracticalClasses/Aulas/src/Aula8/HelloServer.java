@@ -4,10 +4,15 @@ import java.io.*;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class HelloServer extends java.rmi.server.UnicastRemoteObject implements Hello_S_I {
 	private static Hello_C_I client;
+	private int clientCount = 0;
+	private List<Integer> last10Numbers = new ArrayList<>();
+	private List<Hello_C_I> clients = new ArrayList<>();
+
 	
 	public HelloServer() throws java.rmi.RemoteException{
 		super();
@@ -18,11 +23,23 @@ public class HelloServer extends java.rmi.server.UnicastRemoteObject implements 
 		System.out.println( " SERVER : " +s );
 	}
 	
-	//Método remoto
-	public void subscribe (String name, Hello_C_I c) throws java.rmi.RemoteException{
-		System.out.println("Subscribing " + name );
-		client = c;
-		client.printOnClient("Client number -> " + Hello_C_I.getCount());
+	// Método remoto
+	public void subscribe(String name, Hello_C_I c) throws java.rmi.RemoteException {
+	    System.out.println("Subscribing " + name);
+	    synchronized (this) {
+	    	client = c;
+	    	clients.add(c);
+	        clientCount++;
+	        last10Numbers.add(clientCount);
+	        if (last10Numbers.size() == 3) {
+	            int winningNumber = last10Numbers.get(new Random().nextInt(3));
+	            System.out.println("Winning number is " + winningNumber);          
+	            for (Hello_C_I client : clients.subList(clients.size() - 3, clients.size())) {
+	            	client.printOnClient("Winning number is " + winningNumber);
+	            }
+	            last10Numbers.clear();
+	        }
+	    }
 	}
 	
 	//Método local
@@ -41,8 +58,6 @@ public class HelloServer extends java.rmi.server.UnicastRemoteObject implements 
 	public static void main (String [] args){
 		String s;
 		try {
-			// Exercício:
-			// - Lançar o registry
 			java.rmi.registry.LocateRegistry.createRegistry(1099);
 			
 			HelloServer h = new HelloServer();
