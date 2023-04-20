@@ -33,10 +33,11 @@ public class Connection extends Thread {
 		try {
 			while(true) {
 				// Wait for a client to connect
-				clientSocket = serverSocket.accept();
+				
 
 				// Increment the number of accesses to the server
 				synchronized (numeroAcessos) {
+					clientSocket = serverSocket.accept();
 					numeroAcessos[0]++;
 				}
 
@@ -101,21 +102,21 @@ public class Connection extends Thread {
 						out.flush();
 						break;	    	    	             
 					}
-				}          
+				} 
+				break;
 			}   
-
 		}
-		catch (IOException e) {
-		}
-		finally {
-			try {
-				clientSocket.close();
-				System.out.println("Client " + clientSocket.getInetAddress().getHostAddress() + " disconnected");
+		catch (IOException e) { }
+		try {
+			
+			clientSocket.close();
+			
+			System.out.println("Client " + clientSocket.getInetAddress().getHostAddress() + " disconnected");
+			
+			synchronized (numeroAcessos) {
 				numeroAcessos[0] = numeroAcessos[0] - 1;
-			} catch (IOException e) {
-
 			}
-		}
+		} catch (IOException e) { }
 	}
 	
 	private static Boolean verificaRepetidos(int numAluno, ArrayList<Aluno> alunos) {	
