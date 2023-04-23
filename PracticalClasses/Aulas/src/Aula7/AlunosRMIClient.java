@@ -1,7 +1,6 @@
 package Aula7;
 
 import java.rmi.Naming;
-
 import myinputs.Ler;
 
 public class AlunosRMIClient {
