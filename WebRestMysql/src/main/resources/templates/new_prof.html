@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Teachers management</title>
+</head>
+
+<body>
+	<div>
+ 		<h1>Teacher Management System</h1>
+ 		<hr>
+ 			<h2>Save Teacher</h2>
+ 			<form action="#" th:action="@{/saveProf}" th:object="${newprof}" method="POST">
+
+ 				<input type="text" th:field="*{id}" placeholder="Prof id" >
+
+ 				<input type="text" th:field="*{name}" placeholder="Teacher Name" >
+ 				
+ 				<input type="text" th:field="*{department}" placeholder="Dep Id" >
+ 
+	 			<button type="submit" > Save Teacher</button>
+ 		
+ 			</form>
+ 		<hr>
+ 		<a th:href="@{/}"> Back to Department and Teacher List</a>
+	</div>
+</body>
+</html>
