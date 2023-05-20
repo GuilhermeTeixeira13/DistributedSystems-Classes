@@ -5,8 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+
+import Aula7.CalcRMIInterface;
 
 public class Connection extends Thread {
 	private Socket s;
@@ -42,9 +45,10 @@ public class Connection extends Thread {
 	private String obterRespostaDoServidorAuxiliar(String ipServidorAuxiliar) {
 		try {
 	        Registry registry = LocateRegistry.getRegistry(ipServidorAuxiliar, 1099);
-	        ServidorXi servidorXi = (ServidorXi) registry.lookup("ServidorXi");
+	        ServidorXiInterface myServerObject = (ServidorXiInterface) Naming.lookup("ServidorXi");
 
-	        String resposta = servidorXi.lerConteudoArquivo();
+	        String resposta = myServerObject.lerConteudoArquivo();
+	        
 
 	        return "Resposta do servidor auxiliar " + ipServidorAuxiliar + ": " + resposta;
 	    } catch (Exception e) {

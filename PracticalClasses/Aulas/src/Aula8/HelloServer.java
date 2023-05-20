@@ -18,12 +18,10 @@ public class HelloServer extends java.rmi.server.UnicastRemoteObject implements 
 		super();
 	}
 	
-	//Método remoto
 	public void printOnServer(String s) throws java.rmi.RemoteException{
 		System.out.println( " SERVER : " +s );
 	}
 	
-	// Método remoto
 	public void subscribe(String name, Hello_C_I c) throws java.rmi.RemoteException {
 	    System.out.println("Subscribing " + name);
 	    synchronized (this) {

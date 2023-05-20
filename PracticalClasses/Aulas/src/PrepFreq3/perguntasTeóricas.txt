@@ -1,0 +1,150 @@
+VER: CalcRMI (Aula7) , Hello (Aula8), PrepFreq1, PrepFreq2, MultiThreadAlunos
+
+
+
+Quais as diferenças entre um sistema de memória distribuida e um sistema de memória partilhada?
+
+Um sistema de memória distribuída consiste em nós ou computadores interconectados em uma rede, onde cada nó possui sua própria memória 
+local e o acesso a dados em outros nós requer comunicação explícita. Em contraste, em um sistema de memória compartilhada, todos os 
+processadores têm acesso direto a um espaço de endereço de memória compartilhado, permitindo acesso simultâneo aos dados. Na memória 
+distribuída, os dados são compartilhados através de troca de mensagens ou chamadas de procedimento remoto, enquanto na memória compartilhada 
+não é necessário comunicação explícita para acessar a memória de outros processadores. Além disso, a coerência de cache é necessária em sistemas
+ de memória compartilhada para manter a consistência dos dados, enquanto a escalabilidade é uma vantagem dos sistemas de memória distribuída,
+ mas pode envolver latência de rede. Em resumo, a principal diferença está na organização e no acesso à memória, bem como na forma como os dados
+ são compartilhados e sincronizados entre os diferentes nós ou processadores.
+
+
+
+
+Compare o modelo de uma aplicação que comunica diretamente por Sockets com uma aplicação que comunica através de Objetos Remotos (Java RMI)
+
+A comunicação por Sockets é uma abordagem de nível baixo, onde você lida diretamente com fluxos de entrada e saída. Já o Java RMI é uma 
+abstração de nível mais alto, permitindo invocação remota de objetos. A comunicação por Sockets exige serialização manual de objetos, 
+enquanto o Java RMI trata disso automaticamente. O modelo de programação do Sockets é cliente-servidor, enquanto o Java RMI é orientado 
+a objetos. A descoberta de serviços é feita manualmente nos Sockets, mas o Java RMI possui um registro para localização automática de 
+objetos remotos. O tratamento de exceções é mais conveniente no Java RMI. A comunicação por Sockets é mais flexível, mas requer mais 
+esforço de implementação, enquanto o Java RMI é mais fácil de usar devido à sua infraestrutura embutida.
+
+
+
+No contexto de Java RMI, para que serve um Factory?
+
+Um Factory em Java RMI é usado para criar instâncias de objetos remotos de forma encapsulada. Ele oculta a complexidade da criação 
+e fornece uma interface simples para o cliente. Um Factory oferece flexibilidade na criação de objetos remotos, permitindo lógica 
+personalizada. Ele facilita a evolução do sistema, pois alterações podem ser feitas no Factory sem afetar o código do cliente. 
+A lógica de criação é centralizada em uma única classe, simplificando sua gestão. Em resumo, um Factory em Java RMI abstrai a 
+criação de objetos remotos, oferece flexibilidade, facilita a evolução e centraliza a lógica de criação.
+
+
+
+
+No contexto de Java Enterprise Edition, o que é e paraa que serve uma Entity?
+
+No contexto do Java EE, uma entidade é uma classe que representa um objeto de negócio persistente. Ela é mapeada para uma tabela 
+em um banco de dados relacional e é usada para armazenar e manipular dados. As entidades são anotadas com metadados especiais, 
+como @Entity, para indicar sua mapeabilidade. Por meio de APIs de persistência, como o JPA, é possível realizar operações de 
+persistência, consulta e manipulação nos dados da entidade. As entidades permitem que os desenvolvedores trabalhem com os dados
+de forma orientada a objetos, simplificando o acesso e manipulação dos dados persistentes em aplicativos Java EE.
+
+
+
+
+Explique o que é e para que serve a serialização de uma estrutura de dados.
+
+A serialização de uma estrutura de dados envolve a conversão dessa estrutura em uma sequência de bytes para armazenamento, 
+comunicação ou transferência de dados. Ela permite que os objetos sejam compactados e convertidos em uma forma independente 
+da linguagem de programação. A serialização é útil para armazenar o estado de um programa, transmitir dados entre sistemas 
+distribuídos, superar barreiras de linguagem e trocar dados em formatos padronizados. Além disso, pode ser usada para caching 
+e otimização de desempenho. É importante garantir que os objetos sejam serializáveis e que a segurança seja considerada. 
+Em resumo, a serialização facilita o compartilhamento e a persistência de dados, convertendo-os em uma forma compacta e transferível.
+
+
+
+
+Qual a diferença entre as semânticas perante falhas “at-least-once” e “at-most-once”?
+
+Semântica "at-least-once":
+Na semântica "at-least-once", o objetivo é garantir que uma operação seja executada pelo menos uma vez. Isso significa que o sistema 
+fará todos os esforços para garantir que a operação seja entregue e executada, mesmo que isso resulte em possíveis duplicações. 
+Se uma falha ocorrer durante o processo de entrega, o sistema pode retransmitir a operação para garantir que ela seja processada 
+pelo destinatário. Essa abordagem prioriza a entrega da operação, mesmo que isso possa levar a duplicações no processamento.
+
+Semântica "at-most-once":
+Na semântica "at-most-once", o objetivo é garantir que uma operação seja executada no máximo uma vez, sem duplicações. 
+Nesse caso, o sistema toma medidas para evitar a repetição de operações, mesmo que isso possa levar à perda de alguma operação 
+em caso de falha. A identificação única das operações e a verificação de duplicatas são aplicadas para garantir que cada operação
+ seja processada apenas uma vez, evitando assim possíveis efeitos colaterais ou resultados indesejados.
+
+
+
+
+Stateful Session Bean (SFSB):
+Um SFSB é um componente de sessão que mantém o estado associado a uma única instância de cliente durante toda a duração da sessão. 
+Em outras palavras, ele mantém o estado específico do cliente entre várias chamadas de método. O contêiner Java EE garante que todas 
+as chamadas subsequentes do cliente sejam direcionadas à mesma instância do bean. Isso permite que o bean mantenha informações 
+personalizadas para o cliente, como dados de carrinho de compras em um aplicativo de comércio eletrônico ou informações de login 
+em um aplicativo de gerenciamento de usuários.
+Os SFSBs são úteis quando há a necessidade de manter o estado do cliente ao longo de várias interações, mas eles também têm algumas 
+considerações adicionais, como a necessidade de gerenciar adequadamente o ciclo de vida da sessão e garantir a consistência do estado.
+
+Stateless Session Bean (SLSB):
+Um SLSB é um componente de sessão que não mantém estado associado a uma instância específica do cliente. Cada chamada de método para um 
+SLSB é independente das chamadas anteriores e subsequentes. O contêiner Java EE pode direcionar chamadas de clientes diferentes para 
+instâncias diferentes do bean, conforme necessário, para lidar com a carga de trabalho.
+Os SLSBs são geralmente usados para operações que não exigem o armazenamento de estado entre as chamadas, como serviços de negócios 
+que realizam cálculos ou operações de acesso a banco de dados. Eles são leves e eficientes, pois não precisam lidar com a sobrecarga 
+de manter o estado do cliente.
+
+
+
+
+Em sistemas distribuídos, um sistema síncrono segue um relógio global compartilhado, com operações executadas em momentos sincronizados. 
+O tempo de resposta é previsível, mas a ordem das operações é sequencial e a flexibilidade e tolerância a falhas são limitadas.
+Um sistema síncrono é mais fácil de projetar e analisar, enquanto um sistema assíncrono é mais flexível e resiliente a falhas. 
+A sincronia oferece uma estrutura clara, mas pode limitar a adaptabilidade. A assincronia permite ajustes a atrasos e indisponibilidades, 
+mas torna o projeto e análise mais complexos. Um exemplo de sistema síncrono em um contexto distribuído seria um sistema de transações bancárias. 
+Nesse sistema, as operações de transferência de dinheiro entre contas devem ocorrer em uma ordem sequencial e coordenada. Cada operação depende 
+do saldo atual das contas envolvidas e é executada em etapas bem definidas, seguindo um relógio global compartilhado. Isso garante que as operações 
+sejam executadas corretamente e que o saldo final seja consistente.
+
+Já um sistema assíncrono não possui relógio global e as operações ocorrem de forma independente, por meio de comunicação assíncrona. 
+A ordem das operações é não determinística e o tempo de resposta pode variar. No entanto, a flexibilidade e tolerância a falhas são maiores.
+A escolha entre um sistema síncrono e assíncrono depende das necessidades do sistema e das características desejadas, como previsibilidade, 
+flexibilidade e tolerância a falhas. Ambos os tipos têm vantagens e desvantagens específicas. Um exemplo de sistema assíncrono em um 
+contexto distribuído seria uma rede social em que os usuários podem publicar mensagens e comentários. Nesse sistema, as operações de 
+publicação e comentário podem ocorrer em qualquer ordem, sem depender de uma sincronização rígida. Cada usuário pode interagir independentemente, 
+enviando suas mensagens e comentários por meio de comunicação assíncrona. Não há necessidade de uma ordem estrita das operações, e o tempo de 
+resposta pode variar dependendo do tráfego da rede e do desempenho dos servidores.
+
+
+
+
+Os sistemas de bancos de dados SQL e NoSQL diferem em vários aspectos.
+
+Os bancos de dados SQL são estruturados em tabelas com esquemas definidos, enquanto os bancos de dados NoSQL têm modelos de dados flexíveis, como documentos, colunas, grafos ou pares chave-valor.
+Os bancos de dados SQL são escalados verticalmente, adicionando recursos a um único servidor, enquanto os bancos de dados NoSQL são escalados horizontalmente, distribuindo a carga em vários servidores.
+Os bancos de dados SQL são mais adequados para aplicações com requisitos de integridade de dados rígidos, enquanto os bancos de dados NoSQL são mais flexíveis e priorizam a disponibilidade e escalabilidade.
+Os bancos de dados SQL são comumente usados em aplicativos tradicionais de negócios, enquanto os bancos de dados NoSQL são usados em aplicativos da web, móveis, análise de big data e IoT.
+A escolha entre SQL e NoSQL depende das necessidades específicas do aplicativo em termos de consistência, escalabilidade e flexibilidade.
+Ambos os sistemas têm suas vantagens e desvantagens, e a seleção adequada depende dos requisitos do projeto e do tipo de dados a serem armazenados e acessados.
+
+
+
+
+A computação em nuvem possui as seguintes características principais:
+
+Acesso remoto através da Internet.
+Escalabilidade rápida e fácil.
+Virtualização de recursos físicos.
+Elasticidade na alocação dinâmica de recursos.
+Modelos de serviço: IaaS, PaaS e SaaS.
+Compartilhamento de recursos entre usuários.
+Redução de custos por meio da utilização eficiente de recursos.
+Disponibilidade e acessibilidade em qualquer lugar.
+Backup e recuperação de dados simplificados.
+Atualizações e manutenção centralizadas.
+Integração com outras tecnologias e serviços.
+Pagamento por uso, oferecendo flexibilidade financeira.
+Gerenciamento centralizado de recursos.
+Colaboração e compartilhamento de informações facilitados.
+Maior agilidade e capacidade de inovação para as organizações.

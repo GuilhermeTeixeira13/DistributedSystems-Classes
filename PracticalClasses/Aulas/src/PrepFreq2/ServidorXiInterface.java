@@ -1,5 +1,8 @@
 package PrepFreq2;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
 public interface ServidorXiInterface extends Remote {
-    String lerConteudoArquivo() throws RemoteException;
+    public String lerConteudoArquivo() throws RemoteException;
 }
