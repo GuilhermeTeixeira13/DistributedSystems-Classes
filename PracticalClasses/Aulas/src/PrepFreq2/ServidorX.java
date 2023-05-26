@@ -7,7 +7,7 @@ import java.net.Socket;
 public class ServidorX {
     private static final int SERVER_PORT = 8888; 
     private static final int NUM_SERVIDORES_AUXILIARES = 10; 
-    private static int servidorAtual = 0;
+    private static int servidorAtual = -1;
     private static String[] ips = {"sv1", "sv2", "sv3", "sv4", "sv5", "sv6", "sv7", "sv8", "sv9", "sv10"};
 
     
