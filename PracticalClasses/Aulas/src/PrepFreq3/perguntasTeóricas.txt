@@ -38,11 +38,11 @@ criação de objetos remotos, oferece flexibilidade, facilita a evolução e cen
 
 
 
-No contexto de Java Enterprise Edition, o que é e paraa que serve uma Entity?
+No contexto de Java Enterprise Edition, o que é e para que serve uma Entity?
 
 No contexto do Java EE, uma entidade é uma classe que representa um objeto de negócio persistente. Ela é mapeada para uma tabela 
 em um banco de dados relacional e é usada para armazenar e manipular dados. As entidades são anotadas com metadados especiais, 
-como @Entity, para indicar sua mapeabilidade. Por meio de APIs de persistência, como o JPA, é possível realizar operações de 
+com @Entity, para indicar sua mapeabilidade. Por meio de APIs de persistência, como o JPA, é possível realizar operações de 
 persistência, consulta e manipulação nos dados da entidade. As entidades permitem que os desenvolvedores trabalhem com os dados
 de forma orientada a objetos, simplificando o acesso e manipulação dos dados persistentes em aplicativos Java EE.
 
@@ -58,6 +58,26 @@ distribuídos, superar barreiras de linguagem e trocar dados em formatos padroni
 e otimização de desempenho. É importante garantir que os objetos sejam serializáveis e que a segurança seja considerada. 
 Em resumo, a serialização facilita o compartilhamento e a persistência de dados, convertendo-os em uma forma compacta e transferível.
 
+
+
+
+Qual a(s) diferença(s) entre invocar um método remoto e invocar um web service?
+
+Protocolo de comunicação: Um método remoto geralmente utiliza um protocolo específico para comunicação, como o RMI (Remote Method Invocation), 
+enquanto um web service utiliza protocolos baseados em padrões da web, como SOAP (Simple Object Access Protocol) ou REST (Representational State 
+Transfer).
+
+Independência de plataforma: Um web service é projetado para ser independente de plataforma, permitindo que diferentes sistemas possam interagir 
+de forma interoperável. Já um método remoto pode ser mais específico para uma plataforma ou tecnologia.
+
+Descoberta e registro: Web services geralmente fornecem recursos para descoberta e registro, onde os serviços são anunciados e encontrados em
+um diretório centralizado. Os métodos remotos normalmente não têm essa funcionalidade embutida.
+
+Flexibilidade e escalabilidade: Web services são altamente flexíveis e escaláveis, permitindo que diferentes clientes possam acessar os mesmos 
+serviços de maneira eficiente. Métodos remotos podem ser menos flexíveis e escaláveis, dependendo da tecnologia utilizada.
+
+Padrões de comunicação: Web services são baseados em padrões amplamente aceitos, o que facilita a integração com diferentes sistemas. 
+Métodos remotos podem ter padrões mais específicos, dependendo da tecnologia utilizada.
 
 
 
@@ -148,3 +168,309 @@ Pagamento por uso, oferecendo flexibilidade financeira.
 Gerenciamento centralizado de recursos.
 Colaboração e compartilhamento de informações facilitados.
 Maior agilidade e capacidade de inovação para as organizações.
+
+
+
+
+Diga o que é um callback em Java RMI.
+
+Em Java RMI (Remote Method Invocation), um "callback" refere-se a uma técnica em que um objeto remoto permite que o cliente chame de volta 
+(callback) métodos definidos no cliente. Isso permite que o objeto remoto envie informações ou notificações assíncronas para o cliente.
+Normalmente, em uma chamada de método RMI, o cliente invoca um método em um objeto remoto e espera pela resposta. No entanto, em certos 
+cenários, é necessário que o objeto remoto inicie uma comunicação com o cliente, em vez de esperar por uma solicitação do cliente. Aqui 
+é onde entra o callback.O callback em Java RMI é implementado utilizando uma interface. O cliente registra sua implementação da interface
+ com o objeto remoto. O objeto remoto, então, pode chamar os métodos definidos na interface do callback para notificar o cliente sobre 
+eventos ou compartilhar informações.Por exemplo, suponha que você tenha um servidor RMI que monitora o status de um processo em tempo real. 
+O cliente pode registrar um objeto de callback que implementa uma interface com métodos como "onProcessStarted" e "onProcessCompleted". 
+Quando o processo começar ou terminar, o servidor RMI pode chamar os métodos correspondentes no objeto de callback do cliente para notificá-lo
+ sobre esses eventos.O callback em Java RMI é uma poderosa técnica que permite a comunicação bidirecional entre objetos remotos e clientes, 
+tornando possível a transmissão assíncrona de informações e notificações.
+
+
+
+
+Diga o que é o protocolo pedido-resposta e identifique as operações que o implementam:
+
+O protocolo pedido-resposta é um modelo de comunicação entre um cliente e um servidor. O cliente envia uma solicitação ao servidor, 
+contendo informações sobre a operação desejada. O servidor recebe a solicitação, processa a operação e envia uma resposta de volta ao cliente.
+ O protocolo é síncrono, o que significa que o cliente aguarda a resposta antes de continuar sua execução. Existem várias implementações 
+desse protocolo, como o HTTP, que é usado na web para comunicação entre navegadores e servidores web. O RPC permite a execução remota de 
+procedimentos em um servidor, enquanto o SMTP é usado para enviar e-mails entre servidores. A escolha do protocolo depende das necessidades 
+e requisitos da aplicação em questão.
+
+
+
+
+No contexto da linguagem java, explique a diferença entre um lock de classe e um
+lock de objeto.
+
+Em resumo, a diferença entre um lock de classe e um lock de objeto está na granularidade do bloqueio. Um lock de classe sincroniza o acesso 
+a um método estático em toda a classe, enquanto um lock de objeto sincroniza o acesso a um método não estático em uma instância específica 
+do objeto. A escolha entre os dois tipos de lock depende dos requisitos específicos do programa e da forma como os recursos compartilhados 
+devem ser acessados de forma segura em um ambiente concorrente.
+
+
+
+
+Explique porque razao se diz que um sistema distribuido é concorrente, heterogéneo e assíncrono?
+
+Concorrente: Um sistema distribuído envolve a interação simultânea de vários componentes independentes, como computadores, servidores, dispositivos de armazenamento e nós de rede. 
+Esses componentes podem executar tarefas diferentes e, muitas vezes, competir por recursos compartilhados. A concorrência surge quando múltiplos processos ou threads estão sendo 
+executados em paralelo, e há a necessidade de coordenar e sincronizar suas ações para evitar conflitos e garantir a consistência dos dados. A concorrência é uma característica 
+fundamental em sistemas distribuídos para otimizar o desempenho, permitir a escalabilidade e a utilização eficiente dos recursos disponíveis.
+
+Heterogêneo: Um sistema distribuído geralmente é composto por diferentes tipos de hardware, sistemas operacionais, linguagens de programação, protocolos de comunicação e arquiteturas. 
+Essa diversidade de componentes é o que torna o sistema heterogêneo. Os dispositivos podem variar em termos de poder de processamento, capacidade de armazenamento, velocidade da rede 
+e outras características. A heterogeneidade apresenta desafios adicionais para o desenvolvimento e o gerenciamento de sistemas distribuídos, pois é necessário garantir a interoperabilidade
+ entre os componentes heterogêneos, lidar com questões de compatibilidade e ajustar o comportamento do sistema para acomodar as diferenças nos recursos disponíveis.
+
+Assíncrono: Em um sistema distribuído, os componentes independentes podem operar em ritmos diferentes e em diferentes momentos. A comunicação entre esses componentes ocorre por meio 
+de troca de mensagens, e não há uma noção global de tempo compartilhada. Isso significa que não há uma garantia de que uma mensagem seja recebida imediatamente após ser enviada ou 
+que as operações sejam executadas em ordem sequencial. Os atrasos na rede, falhas de comunicação ou atrasos na resposta dos componentes podem causar comportamentos assíncronos no sistema.
+A natureza assíncrona dos sistemas distribuídos torna necessário lidar com problemas de coordenação, sincronização e consistência de dados.
+
+
+
+
+Explique como funcionam os métodos notify() e wait() em Java.
+
+O método notify() é usado para notificar uma thread em espera de que uma determinada condição tenha ocorrido e que ela pode continuar sua execução. Para chamar o método notify(), 
+é necessário obter o monitor do objeto no qual a thread está esperando usando a palavra-chave synchronized. 
+O método wait() é usado por uma thread para aguardar até que outra thread notifique-a de que uma condição específica foi atendida. A thread chamadora deve adquirir o monitor do 
+objeto antes de chamar o método wait(). Quando o método wait() é chamado, a thread atual libera o monitor e entra em um estado de espera. A thread permanecerá em espera até que 
+outra thread chame notify() ou notifyAll() no mesmo objeto monitorado.
+
+class Processo {
+    public void executar() {
+        synchronized (this) {
+            System.out.println("Iniciando o processo...");
+
+            try {
+                // Aguardar até que seja notificado
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // Continuar a execução após ser notificado
+            System.out.println("Processo concluído.");
+        }
+    }
+
+    public void notificar() {
+        synchronized (this) {
+            System.out.println("Notificando o processo...");
+            
+            // Notificar a thread em espera
+            notify();
+        }
+    }
+}
+
+public class ExemploNotifyWait {
+    public static void main(String[] args) {
+        Processo processo = new Processo();
+
+        // Thread para executar o processo
+        Thread threadProcesso = new Thread(() -> {
+            processo.executar();
+        });
+
+        // Thread para notificar o processo após 3 segundos
+        Thread threadNotificacao = new Thread(() -> {
+            try {
+                Thread.sleep(3000);
+                processo.notificar();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        // Iniciar as threads
+        threadProcesso.start();
+        threadNotificacao.start();
+
+        try {
+            // Aguardar até que as threads terminem
+            threadProcesso.join();
+            threadNotificacao.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Programa finalizado.");
+    }
+}
+
+_________________________________________________
+
+Exercício da tabela:
+
+Supondo que temos:
+
+public class Exemplo {
+	private static int a;
+	private int b;
+	private static synchronized void m1(){...};
+	private synchronized void m2(){...};
+	public void m3(){...};
+}
+
+Exemplo o1 = new Exemplo();
+Exemplo o2 = new Exemplo();
+
+Indique se os métodos a seguir invocados estão ou não em exclusão mútua:
+
+a) o1.m1() e o2.m1(), sim, adquirem o lock da classe devido ao "static synchronized", embora sejam objetos diferentes
+
+b) o1.m3() e o2.m3(), não, não têm "synchronized" e estão a ser executados em objetos diferentes.
+
+c) o1.m2() e o2.m2(), não, pois têm "synchronized", ou seja, adquirem o lock do objeto e neste caso as chamadas são de objetos diferentes.
+
+d) o1.m2() e o2.m3(), não, pois são métodos diferentes.
+
+e) o1.m2() e o1.m2(), sim, pois têm "synchronized", ou seja, adquirem o lock do objeto e neste caso ambas as chamadas são no mesmo objeto.
+
+_________________________________________________
+
+
+Sockets:
+
+public class Client {
+	private Socket s;
+	
+	public Client() {
+		s = new Socket(ipServer, portaServer);
+		ObjectInputStream is = new Object InputStream(s.getInputStream());
+		ObjectOutputStream os = new Object OutputStream(s.getOutputStream());
+		int option = 0;
+		while(option != 3){
+			...
+			option = Ler.umint();
+			os.writeObject(option);
+			os.flush();
+			System.out.println(is.readObject());
+		}
+		s.close();
+	}
+
+	public static void main (String args[]){
+		Client c = new Client();
+	}	
+}
+
+public class Server {
+	private ServerSOcket ss;
+	private Socket cs;
+	private Connection c;
+	private int numConnections;
+	
+	public Server () {
+		this.numConnections = 0;
+		ss = new ServerSocket(portaServer);
+		
+		while(true){
+			numConnections++;
+			cs = ss.accept();
+			c = new Connection (cs, numConnections);
+		}
+	} 
+
+	public static void main (String args []){
+		Server server = new Server();
+	}
+}
+
+public class Connection extends Thread {
+	private Socket cs;
+	private int numConnections;
+
+	public Connection (Socket cs, int numConnections) {
+		super();
+		this.cs = cs;
+		this.numConnections = numConnections;
+		start();
+	}
+
+	public void run(){
+		ObjectInputStream is = new Object InputStream((this.s).getInputStream());
+		ObjectOutputStream os = new Object OutputStream((this.s).getOutputStream());
+
+		int choice;
+		while((choice = (int) is.readObject()) != 3){
+			if (choice == 1) {os.writeObject();};
+			else if (choice == 2) {os.writeObject();};
+		}
+		os.flush();
+	}
+}
+
+_________________________________________________
+
+
+JAVA RMI and callbacks:
+
+
+public class Server () {
+	public static void main (String args []){
+		registry.LocateRegistry.createRegistry(1099);
+		ServerInterface objRemoto = new ServerImpl();
+		Naming.rebind("server", objRemoto);
+	}
+}
+
+public interface ServerInterface extends Remote {
+	public void inscrever (ClienteInterface c) throws RemoteExeption;
+}
+
+public class ServerImpl extends UnicastRemoteObject implements ServerInterface {
+	private List<ClienteInterface> inscritos;
+
+	public ServerImpl () {
+		super();
+		inscritos = new ArrayList<>();
+	}
+
+	public void inscrever (ClienteInterface c) throws RemoteExeption {
+		(this.inscritos).add(c);
+		if(inscritos.size() >= limite){
+			for (ClienteInterface inscrito : inscritos){
+				inscrito.printOnClient("...");
+			}
+		}
+	}
+}
+
+public class Cliente {
+	public static void main(String[] args){
+		LocateRegistry.getRegistry(ipServer, 1099);
+		ServerInterface s = (ServerInterface) Naming.Lookup("server");
+		ClienteImpl c = new ClienteImpl("nome");
+		s.inscrever(c);
+	}
+}
+
+public interface ClienteInterface extends Remote {
+	public void printOnClient (String s) throws RemoteExeption;
+	public String getName () throws RemoteExeption;
+}
+
+public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface {
+	String nome;
+
+	public ClienteImpl (String nome) {
+		super();
+		this.nome = nome;
+	}	
+
+	public void printOnClient (String s) throws RemoteExeption {
+		...
+	}
+
+	public String getName () throws RemoteExeption {
+		...
+	}
+}
+
+
+
